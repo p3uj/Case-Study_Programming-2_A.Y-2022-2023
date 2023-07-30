@@ -92,6 +92,32 @@ void createDoubly(){
 }
 //-----End of the function-----//
 
+//-----Data List-----//
+void dataList(){
+    // Priting Normal Order
+    if (choice == 21 || choice == 4 || choice == 5 || choice == 6){
+        if (choice == 4 || choice == 5 || choice == 6)
+            printf("\n\nNormal Order's Updated List:\n");
+        normal = head;    // Ilalagay si normal pointer variable kung nasa'n man si head pointer variable.
+        while (normal != NULL){ // Mag-loloop ito hanggat ang normal pointer variable ay hindi naka-NULL.
+            printf("%d  ", normal->x);   // Print 'yong number na nasa normal->x;
+            normal = normal->next;  // Ilalagay(Ililipat) si normal kung nasa'n man naka-linked ang normal->next para na next na ipi-print na number.
+        } // End of the while statement.
+    }
+    
+    // Priting Ascending Order
+    if (choice == 31 || choice == 4 || choice == 5 || choice == 6){
+        if (choice == 4 || choice == 5 || choice == 6)
+            printf("\n\nAscending Order's Updated List:\n");
+        sort = headSort;    // Ilalagay si normal pointer variable kung nasa'n man si head pointer variable.
+        while (sort != NULL){ // Mag-loloop ito hanggat ang normal pointer variable ay hindi naka-NULL.
+            printf("%d  ", sort->x);   // Print 'yong number na nasa normal->x;
+            sort = sort->next;  // Ilalagay(Ililipat) si normal kung nasa'n man naka-linked ang normal->next para na next na ipi-print na number.
+        } // End of the while statement.  
+    }
+}
+//-----End of the function-----//
+
 //-----Display the Normal Order-----//
 void normalDisplay(){
     if (choice==21){    // Kailangan itong condition(if (choice==21)) para hindi dito pumasok kapag kinol itong function mula sa insertNode function.
@@ -99,11 +125,7 @@ void normalDisplay(){
         printf("\t(2) Display a Doubly Linked List\n");
         printf("---------------------------------------------------\n");
         printf("Normal Order\n");
-        normal = head;    // Ilalagay si normal pointer variable kung nasa'n man si head pointer variable.
-        while (normal != NULL){ // Mag-loloop ito hanggat ang normal pointer variable ay hindi naka-NULL.
-            printf("%d  ", normal->x);   // Print 'yong number na nasa normal->x;
-            normal = normal->next;  // Ilalagay(Ililipat) si normal kung nasa'n man naka-linked ang normal->next para na next na ipi-print na number.
-        } // End of the while statement.
+        dataList();  // Function call to dataList function to print the list
         printf("\n\nPress any key to go back to Main Menu...");
         getch();    // Hold the key to be entered from the user.
         system("cls");  // Clear the screen.
@@ -160,11 +182,7 @@ void sortingAs(){
         printf("\t(3) Sorted Doubly Linked List\n");
         printf("---------------------------------------------------\n");
         printf("Ascending\n");
-        sort = headSort;    // Assign the sort pointer variable to headSort.
-        while (sort!=NULL){ // Mag-loloop ito hanggat ang sort pointer variable ay hindi naka-NULL.
-            printf("%d  ", sort->x); // Print 'yong number na nasa sort->x.
-            sort = sort->next;  // Ilalagay(Ililipat) si sort kung nasa'n man naka-linked ang sort->next.
-        } // End of the while statement.
+        dataList(); // Function call to dataList function to print the list
         printf("\n\nPress any key to go back to Main Menu...");
         getch();    // Hold the key to be entered from the user.
         system("cls");  // Clear the screen.
@@ -174,29 +192,15 @@ void sortingAs(){
 
 //-----Sorting Part: Descending Order (Balloon Sort)-----//
 void sortingDes(){
-    sort = headSort;    // Assign the sort pointer variable to headSort.
-    while (sort != NULL){   // Outer Loop
-        compare1 = sort->next;  // Assign the compare1 where the sort->next was linked until NULL para sa comparison. (Ilalagay natin si compare1 kung sa'n man naka-linked si sort->next para sa comparison)
-        while (compare1 != NULL){   // Inner Loop (This inner loop will keep looping unless the compare1 is equal to NULL)
-            if(sort->x < compare1->x){  // Swap the value of sort->x and compare1->x kapag true ang lumabas pagtapos i-evaluate 'yong condition ng if statement.
-                temp = compare1->x;     // temp variable will hold the value of compare1->x. (Kung ano man ang number na nasa compare1->x ay ganon din ang magiging laman(number) ni temp variable).
-                compare1->x = sort->x;  // The new value in compare1->x is the value stored of sort->x. (Kung ano man ang value ng nasa sort->x ay 'yon na rin ang BAGONG VALUE ng compare1->x)
-                sort->x = temp;         // The new value in sort->x is the value stored in temp. (Kung ano man ang value ng nasa temp ay 'yon na rin ang BAGONG VALUE ng sort->x)
-            }   // End of swapping
-            compare1 = compare1->next;  // Assign the compare1 where the compare1->next was linked until NULL para sa next comparison. (Ilalagay natin si compare1 kung sa'n man naka-linked si compare1->next para sa next comparison)
-        }   // End of the Inner Loop
-        sort = sort->next;  // Assign the sort where the sort->next was linked until NULL para sa next comparison. (Ilalagay natin si sort pointer variable kung sa'n man naka-linked si sort->next para sa next comparison)
-    }   // End of the Outer loop
-
     // Printing the data in doubly linked list.
     printf("---------------------------------------------------\n");
     printf("\t(3) Sorted Doubly Linked List\n");
     printf("---------------------------------------------------\n");
     printf("Descending\n");
-    sort = headSort;    // Assign the normal pointer variable to head.
+    sort = tailSort;    // Assign the normal pointer variable to tailSort.
     while (sort!=NULL){ // Mag-loloop ito hanggat ang sort pointer variable ay hindi naka-NULL.
         printf("%d  ", sort->x); // Print 'yong number na nasa sort->x.
-        sort = sort->next;  // Ilalagay(Ililipat) si sort kung nasa'n man naka-linked ang sort->next.
+        sort = sort->prev;  // Ilalagay(Ililipat) si sort kung nasa'n man naka-linked ang sort->prev.
     } // End of the while statement.
     printf("\n\nPress any key to go back to Main Menu...");
     getch();    // Hold the key to be entered from the user.
@@ -254,6 +258,7 @@ as hindi pa nali-linked ang number to be inserted.*/
         compare1 = compare1->next;    // Assign the compare1 where the compare1->next was linked for preparation to the next comparison.
     }   // End of the while loop
     printf("Number %d successfully inserted", sort->x);
+    dataList(); // Function call to dataList function to print the updated list
     printf("\n\nPress any key to go back to Main Menu...");
     getch();    // Hold the key to be entered from the user.
     system("cls");  // Clear the screen.
@@ -309,14 +314,6 @@ void deleteNode(){
             compare1 = compare2->prev;  // Ilalagay(Ililipat) si compare1 pointer variable kung sa'n man naka-linked si compare2->prev para incase na mag-true na ang next comparison ay mali-linked natin s'ya sa tamang node.
     } // End of while statement.
 
-    if (found == 0) // Kapag ang value ng found variable ay 0 pa rin after umikot sa while loop, ibig sabihin wala sa linked list 'yong number na ide-delete.
-        printf("%d is not in the list\n", deleteNum);
-    else
-        printf("%d is successfully deleted!\n", deleteNum);
-    printf("\n\nPress any key to go back to Main Menu...");
-    getch();    // Hold the key to be entered from the user.
-    system("cls");  // Clear the screen.
-
     // Deleting the number in ascending memory location
     sort = headSort;    // Ilalagay si sort pointer variable kung nasa'n man si headSort pointer variable.
 	while (sort != NULL){   // Mag-loloop ito hanggat ang normal pointer variable ay hindi naka-NULL.
@@ -355,6 +352,17 @@ void deleteNode(){
         if (compare2 != NULL)
             compare1 = compare2->prev;// Ilalagay(Ililipat) si compare1 pointer variable kung sa'n man naka-linked si compare2->prev para incase na mag-true na ang next comparison ay mali-linked natin s'ya sa tamang node.
 	} // End of while statement.
+
+    if (found == 0) // Kapag ang value ng found variable ay 0 pa rin after umikot sa while loop, ibig sabihin wala sa linked list 'yong number na ide-delete.
+        printf("%d is not in the list\n", deleteNum);
+    else
+        printf("%d is successfully deleted!\n", deleteNum);
+    
+    dataList(); // Function call to dataList function to print the update list
+
+    printf("\n\nPress any key to go back to Main Menu...");
+    getch();    // Hold the key to be entered from the user.
+    system("cls");  // Clear the screen.
 }
 //-----End of the function-----//
 
@@ -385,7 +393,7 @@ void searchNode(){
             nodeCount++;    // Bibilangin ni nodeCount lahat ng node na madadaanan ni normal pointer variable.
             if (normal->x == searchNum){
                 found = 1;  // set na si found as 1. Sign na nahanap na ang number to be search.
-                printf("\n%d is in the list. It is in node number %d", searchNum, nodeCount);
+                printf("%d is in the list. It is in node number %d\n", searchNum, nodeCount);
             }
             normal = normal->next;  // Ilalagay(Ililipat) si normal pointer variable kung sa'n man naka-linked si normal->next para sa next comparison.
         }
@@ -402,13 +410,14 @@ void searchNode(){
             nodeCount++;    // counter kung pang ilang node yung hinahanap na number sa list.
             if (sort->x == searchNum){
                 found = 1; // nag set sya as 1, ibig sabihin nahanap nya yung hinahanap na number sa isang node
-                printf("\n%d is in the list. It is in node number %d", searchNum, nodeCount);
+                printf("%d is in the list. It is in node number %d\n", searchNum, nodeCount);
             }
             sort = sort->next;  // Ilalagay(Ililipat) si sort pointer variable kung sa'n man naka-linked si sort->next para sa next comparison.
         }
         if (!found) { // if condition kung hindi nahanap yung number sa isang node
             printf("%d is not in the list.\n", searchNum);
         }
+        dataList(); // Function call to dataList function to print the list and verify
 
         printf("\n\nDo you want to search another number? (Y/N): ");
         scanf(" %c", &consearch);
@@ -435,7 +444,7 @@ void displayAndSort(){
 	    case 22: system("cls");reverseDisplay(); break; //case to call the reverseDisplay function
 	    default: printf("Invalid choice! Returning to menu!");getch();break;
 	    }
-	    }
+	}
 	else {
         printf("---------------------------------------------------\n");
 		printf("\t(3) Sort a Doubly Linked List\n");
@@ -456,7 +465,7 @@ void displayAndSort(){
 
 //-----Main Menu-----//
 void menu(){
-    printf("----------------------------------------");
+    printf("\n----------------------------------------");
     printf("\n\tMAIN MENU\n");
     printf("----------------------------------------\n");
     printf("(1) Create a new Doubly Linked List\n");
